@@ -49,6 +49,7 @@ public class User extends NameEntity implements UserDetails {
 
     //------------------------------------------------------------------------------------------------------------------
 
+    @Getter
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "user_role",

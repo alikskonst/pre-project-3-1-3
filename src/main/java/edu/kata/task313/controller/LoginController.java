@@ -5,8 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 public interface LoginController {
 
-    @GetMapping({"/", "/login"})
-    String login(ModelMap modelMap);
+    @GetMapping
+    String index();
+
+    @GetMapping("/login")
+    String login();
 
     @GetMapping("/loginError")
     String loginError(ModelMap modelMap);

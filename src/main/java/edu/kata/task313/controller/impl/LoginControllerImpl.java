@@ -10,7 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginControllerImpl implements LoginController {
 
     @Override
-    public String login(ModelMap modelMap) {
+    public String index() {
+        return "redirect:/login";
+    }
+
+    @Override
+    public String login() {
         return "login";
     }
 
