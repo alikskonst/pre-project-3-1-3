@@ -100,7 +100,85 @@
                     </div>
                 </div>
                 <div aria-labelledby="profile-tab" class="tab-pane fade" id="userAdd" role="tabpanel" tabindex="0">
-
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Add new user</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <div th:if="${user.id == null}">
+                                    <form method="post" th:Object="${user}" th:action="@{/users/create}">
+                                        <div class="form-group">
+                                            <label for="name1">Name:</label>
+                                            <input class="form-control" id="name1" th:field="*{name}" type="text"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lastName1">Last name:</label>
+                                            <input class="form-control" id="lastName1" th:field="*{lastName}"
+                                                   type="text"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="middleName1">Middle name:</label>
+                                            <input class="form-control" id="middleName1" th:field="*{middleName}"
+                                                   type="text"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="login1">Login:</label>
+                                            <input class="form-control" id="login1" th:field="*{password}" type="text"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password1">Password:</label>
+                                            <input class="form-control" id="password1" th:field="*{password}"
+                                                   type="password"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="role1">Role:</label>
+                                            <select class="form-control" id="role1" multiple th:field="*{roleSet}">
+                                                <option value="1">ADMIN</option>
+                                                <option value="2">USER</option>
+                                            </select>
+                                        </div>
+                                        <button class="btn btn-primary" type="submit">Save</button>
+                                    </form>
+                                </div>
+                                <div th:if="${user.id != null}">
+                                    <form method="post" th:Object="${user}" th:action="@{/users/update}">
+                                        <div class="form-group">
+                                            <label for="name2">Name:</label>
+                                            <input class="form-control" id="name2" th:field="*{name}" type="text"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lastName2">Last name:</label>
+                                            <input class="form-control" id="lastName2" th:field="*{lastName}"
+                                                   type="text"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="middleName2">Middle name:</label>
+                                            <input class="form-control" id="middleName2" th:field="*{middleName}"
+                                                   type="text"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="login2">Login:</label>
+                                            <input class="form-control" id="login2" th:field="*{password}" type="text"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password2">Password:</label>
+                                            <input class="form-control" id="password2" th:field="*{password}"
+                                                   type="password"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="role2">Role:</label>
+                                            <select class="form-control" id="role2" multiple th:field="*{roleSet}">
+                                                <option value="1">ADMIN</option>
+                                                <option value="2">USER</option>
+                                            </select>
+                                        </div>
+                                        <button class="btn btn-primary" type="submit">Save</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

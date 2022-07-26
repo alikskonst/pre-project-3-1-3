@@ -22,6 +22,7 @@ public class AdminControllerImpl implements AdminController {
     public String pageUsers(ModelMap modelMap) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         modelMap.addAttribute("currentUser", userService.findOne(user.getLogin()));
+        modelMap.addAttribute("user", new User());
         modelMap.addAttribute("userList", userService.findAll());
         return "user_panel";
     }
