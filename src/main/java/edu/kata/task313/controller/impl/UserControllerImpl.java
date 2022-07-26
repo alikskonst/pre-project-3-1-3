@@ -21,7 +21,7 @@ public class UserControllerImpl implements UserController {
     @Override
     public String userPage(ModelMap modelMap) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        modelMap.addAttribute("user", userService.findOne(user.getLogin()));
-        return "user";
+        modelMap.addAttribute("currentUser", userService.findOne(user.getLogin()));
+        return "user_info";
     }
 }
