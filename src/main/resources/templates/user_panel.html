@@ -103,18 +103,19 @@
                             </table>
 
                             <div th:if="${!userList.isEmpty()}">
-                                <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade"
-                                     tabindex="-1" th:each="user : ${userList}" th:id="${'userUpdate' + user.id}">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Edit user</h5>
-                                                <button aria-label="Close" class="close" data-dismiss="modal"
-                                                        type="button">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
+                                <div th:each="user : ${userList}">
+                                    <div aria-hidden="true" aria-labelledby="modalLabel" class="modal fade"
+                                         tabindex="-1" th:id="${'userUpdate' + user.id}">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Edit user</h5>
+                                                    <button aria-label="Close" class="close" data-dismiss="modal"
+                                                            type="button">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
                                                 <p>
                                                 <form method="post" th:Object="${user}" th:action="@{/users/update}"
                                                       th:id="${'formUpdate' + user.id}">
@@ -172,19 +173,20 @@
                                 </div>
                             </div>
 
-                            <div th:if="${!userList.isEmpty()}">
-                                <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade"
-                                     tabindex="-1" th:each="user : ${userList}" th:id="${'userRemove' + user.id}">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Remove user</h5>
-                                                <button aria-label="Close" class="close" data-dismiss="modal"
-                                                        type="button">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
+                                <div th:if="${!userList.isEmpty()}">
+                                    <div th:each="user : ${userList}">
+                                        <div aria-hidden="true" aria-labelledby="modalLabel" class="modal fade"
+                                             tabindex="-1" th:id="${'userRemove' + user.id}">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Remove user</h5>
+                                                        <button aria-label="Close" class="close" data-dismiss="modal"
+                                                                type="button">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
                                                 <p>
                                                 <form method="post" th:Object="${user}"
                                                       th:action="@{/admin/remove/{id}(id=${user.id})}"
@@ -238,9 +240,10 @@
                                                         type="submit">Удалить
                                                 </button>
                                             </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                             </div>
 
                         </div>
