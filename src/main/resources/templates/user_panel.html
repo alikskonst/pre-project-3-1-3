@@ -31,8 +31,8 @@
     <div class="row">
         <div class="col-3">
             <ul class="list-group">
-                <li aria-current="true" class="list-group-item active">
-                    <a href="/admin" style="color: white">Admin</a>
+                <li aria-current="true" class="list-group-item">
+                    <a href="/admin">Admin</a>
                 </li>
                 <li aria-current="true" class="list-group-item">
                     <a href="/user">User</a>
@@ -92,14 +92,14 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <button class="btn btn-info" data-toggle="modal"
-                                                    th:data-target="${'#userUpdate' + user.id}" type="button">
+                                            <button class="btn btn-info" data-bs-toggle="modal"
+                                                    th:data-bs-target="${'#userUpdate' + user.id}" type="button">
                                                 Edit
                                             </button>
                                         </td>
                                         <td>
-                                            <button class="btn btn-danger" data-toggle="modal"
-                                                    th:data-target="${'#userRemove' + user.id}" type="button">
+                                            <button class="btn btn-danger" data-bs-toggle="modal"
+                                                    th:data-bs-target="${'#userRemove' + user.id}" type="button">
                                                 Delete
                                             </button>
                                         </td>
@@ -108,58 +108,148 @@
                                 </table>
 
                                 <div th:if="${!userList.isEmpty()}">
-                                    <div th:each="user : ${userList}">
-                                        <div aria-hidden="true" aria-labelledby="modalLabel" class="modal fade"
-                                             tabindex="-1" th:id="${'userUpdate' + user.id}">
+                                    <div th:each="userU : ${userList}">
+                                        <div aria-hidden="true" class="modal fade" tabindex="-1"
+                                             th:aria-labelledby="${'modalLabelU' + userU.id}"
+                                             th:id="${'userUpdate' + userU.id}">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title">Edit user</h5>
-                                                        <button aria-label="Close" class="close" data-dismiss="modal"
+                                                        <h5 class="modal-title">Update user</h5>
+                                                        <button aria-label="Close" class="close" data-bs-dismiss="modal"
+                                                                type="button">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form method="post" th:action="@{/admin/save}"
+                                                              th:id="${'formUpdate' + userU.id}" th:object="${user}">
+                                                            <div class="form-group">
+                                                                <label th:for="${'idU' + userU.id}">ID:</label>
+                                                                <input class="form-control" disabled name="id"
+                                                                       th:id="${'idU' + userU.id}"
+                                                                       th:value="${userU.id}" type="text"/>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label th:for="${'nameU' + userU.id}">Name:</label>
+                                                                <input class="form-control" name="name"
+                                                                       th:id="${'nameU' + userU.id}"
+                                                                       th:value="${userU.name}" type="text"/>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label th:for="${'lastNameU' + userU.id}">Last
+                                                                    name:</label>
+                                                                <input class="form-control" name="lastName"
+                                                                       th:id="${'lastNameU' + userU.id}"
+                                                                       th:value="${userU.lastName}" type="text"/>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label th:for="${'middleNameU' + userU.id}">Middle
+                                                                    name:</label>
+                                                                <input class="form-control" name="middleName"
+                                                                       th:id="${'middleNameU' + userU.id}"
+                                                                       th:value="${userU.middleName}" type="text"/>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label th:for="${'loginU' + userU.id}">Login:</label>
+                                                                <input class="form-control" name="login"
+                                                                       th:id="${'loginU' + userU.id}"
+                                                                       th:value="${userU.login}" type="text"/>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label th:for="${'passwordU' + userU.id}">Password:</label>
+                                                                <input class="form-control" name="password"
+                                                                       th:id="${'passwordU' + userU.id}"
+                                                                       type="password"/>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label th:for="${'roleU' + userU.id}">Role:</label>
+                                                                <select class="form-control" multiple name="roleSet"
+                                                                        th:field="*{roleSet}"
+                                                                        th:id="${'roleSetU' + userU.id}">
+                                                                    <option value="1">ADMIN</option>
+                                                                    <option value="2">USER</option>
+                                                                </select>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-secondary" data-bs-dismiss="modal"
+                                                                type="button">Close
+                                                        </button>
+                                                        <button class="btn btn-info"
+                                                                th:form="${'formUpdate' + userU.id}" type="submit">Save
+                                                            changes
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div th:if="${!userList.isEmpty()}">
+                                    <div th:each="userR : ${userList}">
+                                        <div aria-hidden="true" class="modal fade" tabindex="-1"
+                                             th:aria-labelledby="${'modalLabelR' + userR.id}"
+                                             th:id="${'userRemove' + userR.id}">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Remove user</h5>
+                                                        <button aria-label="Close" class="close" data-bs-dismiss="modal"
                                                                 type="button">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
                                                         <p>
-                                                        <form method="post" th:action="@{/users/save}"
-                                                              th:id="${'formUpdate' + user.id}"
-                                                              th:object="${user}">
+                                                        <form method="post"
+                                                              th:action="@{/admin/remove/{id}(id=${userR.id})}"
+                                                              th:id="${'formRemove' + userR.id}" th:object="${user}">
                                                             <div class="form-group">
-                                                                <label for="id1">ID:</label>
-                                                                <input class="form-control" disabled id="id1"
-                                                                       th:field="*{name}" type="text"/>
+                                                                <label th:for="${'idR' + userR.id}">ID:</label>
+                                                                <input class="form-control" disabled
+                                                                       th:id="${'idR' + userR.id}"
+                                                                       th:value="${userR.id}" type="text"/>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="name1">Name:</label>
-                                                                <input class="form-control" id="name1"
-                                                                       th:field="*{name}"
-                                                                       type="text"/>
+                                                                <label th:for="${'nameR' + userR.id}">Name:</label>
+                                                                <input class="form-control" disabled
+                                                                       th:id="${'nameR' + userR.id}"
+                                                                       th:value="${userR.name}" type="text"/>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="lastName1">Last name:</label>
-                                                                <input class="form-control" id="lastName1"
-                                                                       th:field="*{lastName}" type="text"/>
+                                                                <label th:for="${'lastNameR' + userR.id}">Last
+                                                                    name:</label>
+                                                                <input class="form-control" disabled
+                                                                       th:id="${'lastNameR' + userR.id}"
+                                                                       th:value="${userR.lastName}" type="text"/>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="middleName1">Middle name:</label>
-                                                                <input class="form-control" id="middleName1"
-                                                                       th:field="*{middleName}" type="text"/>
+                                                                <label th:for="${'middleNameR' + userR.id}">Middle
+                                                                    name:</label>
+                                                                <input class="form-control" disabled
+                                                                       th:id="${'middleNameR' + userR.id}"
+                                                                       th:value="${userR.middleName}" type="text"/>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="login1">Login:</label>
-                                                                <input class="form-control" id="login1"
-                                                                       th:field="*{password}" type="text"/>
+                                                                <label th:for="${'loginR' + userR.id}">Login:</label>
+                                                                <input class="form-control" disabled
+                                                                       th:id="${'loginR' + userR.id}"
+                                                                       th:value="${userR.login}" type="text"/>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="password1">Password:</label>
-                                                                <input class="form-control" id="password1"
-                                                                       th:field="*{password}" type="password"/>
+                                                                <label th:for="${'passwordR' + userR.id}">Password:</label>
+                                                                <input class="form-control" disabled
+                                                                       th:id="${'passwordR' + userR.id}" type="password"
+                                                                       value=""/>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="role1">Role:</label>
-                                                                <select class="form-control" id="role1" multiple
-                                                                        th:field="*{roleSet}">
+                                                                <label th:for="${'roleR' + userR.id}">Role:</label>
+                                                                <select class="form-control" disabled
+                                                                        th:field="*{roleSet}"
+                                                                        th:id="${'roleSetR' + userR.id}">
                                                                     <option value="1">ADMIN</option>
                                                                     <option value="2">USER</option>
                                                                 </select>
@@ -168,99 +258,20 @@
                                                         </p>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button class="btn btn-secondary" data-dismiss="modal"
-                                                                type="button">
-                                                            Закрыть
+                                                        <button class="btn btn-secondary" data-bs-dismiss="modal"
+                                                                type="button">Close
                                                         </button>
-                                                        <button class="btn btn-info" th:form="${'formUpdate' + user.id}"
-                                                                type="submit">Сохранить изменения
+                                                        <button class="btn btn-danger"
+                                                                th:form="${'formRemove' + userR.id}" type="submit">
+                                                            Remove
                                                         </button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div th:if="${!userList.isEmpty()}">
-                                        <div th:each="user : ${userList}">
-                                            <div aria-hidden="true" aria-labelledby="modalLabel" class="modal fade"
-                                                 tabindex="-1" th:id="${'userRemove' + user.id}">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">Remove user</h5>
-                                                            <button aria-label="Close" class="close"
-                                                                    data-dismiss="modal"
-                                                                    type="button">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <p>
-                                                            <form method="post" th:Object="${user}"
-                                                                  th:action="@{/admin/remove/{id}(id=${user.id})}"
-                                                                  th:id="${'formRemove' + user.id}">
-                                                                <div class="form-group">
-                                                                    <label for="id2">ID:</label>
-                                                                    <input class="form-control" disabled id="id2"
-                                                                           th:field="*{name}"
-                                                                           type="text"/>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="name2">Name:</label>
-                                                                    <input class="form-control" id="name2"
-                                                                           th:field="*{name}"
-                                                                           type="text"/>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="lastName2">Last name:</label>
-                                                                    <input class="form-control" id="lastName2"
-                                                                           th:field="*{lastName}" type="text"/>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="middleName2">Middle name:</label>
-                                                                    <input class="form-control" id="middleName2"
-                                                                           th:field="*{middleName}" type="text"/>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="login2">Login:</label>
-                                                                    <input class="form-control" id="login2"
-                                                                           th:field="*{password}"
-                                                                           type="text"/>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="password2">Password:</label>
-                                                                    <input class="form-control" id="password2"
-                                                                           th:field="*{password}" type="password"/>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="role2">Role:</label>
-                                                                    <select class="form-control" id="role2" multiple
-                                                                            th:field="*{roleSet}">
-                                                                        <option value="1">ADMIN</option>
-                                                                        <option value="2">USER</option>
-                                                                    </select>
-                                                                </div>
-                                                            </form>
-                                                            </p>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button class="btn btn-secondary" data-dismiss="modal"
-                                                                    type="button">
-                                                                Закрыть
-                                                            </button>
-                                                            <button class="btn btn-danger"
-                                                                    th:form="${'formRemove' + user.id}"
-                                                                    type="submit">Удалить
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -275,30 +286,30 @@
                             <div class="col-4">
                                 <form method="post" th:action="@{/admin/save}" th:object="${user}">
                                     <div class="form-group">
-                                        <label for="name3">Name:</label>
-                                        <input class="form-control" id="name3" th:field="*{name}" type="text"/>
+                                        <label for="nameC">Name:</label>
+                                        <input class="form-control" id="nameC" th:field="*{name}" type="text"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="lastName3">Last name:</label>
-                                        <input class="form-control" id="lastName3" th:field="*{lastName}" type="text"/>
+                                        <label for="lastNameC">Last name:</label>
+                                        <input class="form-control" id="lastNameC" th:field="*{lastName}" type="text"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="middleName3">Middle name:</label>
-                                        <input class="form-control" id="middleName3" th:field="*{middleName}"
+                                        <label for="middleNameC">Middle name:</label>
+                                        <input class="form-control" id="middleNameC" th:field="*{middleName}"
                                                type="text"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="login3">Login:</label>
-                                        <input class="form-control" id="login3" th:field="*{login}" type="text"/>
+                                        <label for="loginC">Login:</label>
+                                        <input class="form-control" id="loginC" th:field="*{login}" type="text"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="password3">Password:</label>
-                                        <input class="form-control" id="password3" th:field="*{password}"
+                                        <label for="passwordC">Password:</label>
+                                        <input class="form-control" id="passwordC" th:field="*{password}"
                                                type="password"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="role3">Role:</label>
-                                        <select class="form-control" id="role3" multiple th:field="*{roleSet}">
+                                        <label for="roleC">Role:</label>
+                                        <select class="form-control" id="roleC" multiple th:field="*{roleSet}">
                                             <option value="1">ADMIN</option>
                                             <option value="2">USER</option>
                                         </select>
@@ -316,8 +327,8 @@
         </div>
     </div>
 </div>
-<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}" type="text/javascript"></script>
-<script th:src="@{/webjars/popper.js/2.9.3/umd/popper.min.js}" type="text/javascript"></script>
-<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.min.js}" type="text/javascript"></script>
+<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}" type="application/javascript"></script>
+<script th:src="@{/webjars/popper.js/2.9.3/umd/popper.min.js}" type="application/javascript"></script>
+<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.min.js}" type="application/javascript"></script>
 </body>
 </html>

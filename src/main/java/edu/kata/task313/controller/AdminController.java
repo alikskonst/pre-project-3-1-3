@@ -14,14 +14,6 @@ public interface AdminController {
     @GetMapping
     String pageUsers(ModelMap modelMap);
 
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    @GetMapping("/create")
-//    String pageCreate(ModelMap modelMap);
-
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    @GetMapping("/update/{id}")
-//    String pageUpdate(ModelMap modelMap, @PathVariable("id") Long id);
-
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/save")
     String save(@ModelAttribute("user") User user);

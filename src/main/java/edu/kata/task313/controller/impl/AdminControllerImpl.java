@@ -27,22 +27,6 @@ public class AdminControllerImpl implements AdminController {
         return "user_panel";
     }
 
-//    @Override
-//    public String pageCreate(ModelMap modelMap) {
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        modelMap.addAttribute("currentUser", userService.findOne(user.getLogin()));
-//        modelMap.addAttribute("user", new User());
-//        return "user_manage";
-//    }
-
-//    @Override
-//    public String pageUpdate(ModelMap modelMap, Long id) {
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        modelMap.addAttribute("currentUser", userService.findOne(user.getLogin()));
-//        modelMap.addAttribute("user", userService.findOne(id));
-//        return "user_manage";
-//    }
-
     @Override
     public String save(User user) {
         userService.save(user);
