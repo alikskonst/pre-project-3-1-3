@@ -42,7 +42,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User savedUser = user.getId() == null ? new User() : findOne(user.getId());
+        if (user.getPassword() != null && user.getPassword().length() != 0) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        } else {
+            user.setPassword(savedUser.getPassword());
+        }
         user.setAccountNonExpired(true);
         user.setAccountNonLocked(true);
         user.setCredentialsNonExpired(true);
